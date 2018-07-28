@@ -9,7 +9,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @EnableBatchProcessing
-@ComponentScan(basePackages = {"com.poc.controller","com.poc.services","com.poc.util"})
+@ComponentScan(basePackages = {"com.hotfix.web.controller","com.hotfix.rest.controller","com.hotfix.services","com.hotfix.util"})
 public class SpringBootWebApplication extends SpringBootServletInitializer {
 
 	@Override

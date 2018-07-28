@@ -23,6 +23,7 @@ public class ProductService {
    
 	
 	 public  List<ProductDTO> getProducts(Map<String, Object> model) {
+		 
 		  List<ProductDTO> results = jdbcTemplate.query("SELECT id, name,type,description,price,unit FROM product", new RowMapper<ProductDTO>() {
 			  @Override
 				public ProductDTO mapRow(ResultSet rs, int row) throws SQLException {
