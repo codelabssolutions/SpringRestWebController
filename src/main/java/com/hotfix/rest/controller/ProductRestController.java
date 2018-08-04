@@ -68,9 +68,6 @@ public class ProductRestController {
 				  ProductResponseList.add(productDomain);
 				} 
 			 productListDomain.setProductList(ProductResponseList);
-			  //productService.addProduct(data);
-			   //return responseEntity;
-			    // System.out.println("==============="+);
 			 return new ResponseEntity(productListDomain,HttpStatus.OK);
 	   	}catch(Exception ex){
 	   	 return new ResponseEntity(HttpStatus.SERVICE_UNAVAILABLE);
