@@ -1,20 +1,10 @@
 package com.hotfix.web.controller;
 
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import com.hotfix.dto.ProductDTO;
-import com.hotfix.services.ProductService;
 
 @Controller
 public class ProductController {
+	/*
 	@Autowired
 	ProductService productService;
    
@@ -24,13 +14,13 @@ public class ProductController {
 		return "welcome";
 	}
 	@RequestMapping("/addproduct")
-	public String addProduct(@ModelAttribute("productdata") ProductDTO data)  {
+	public String addProduct(@ModelAttribute("productdata") Product data)  {
 		productService.addProduct(data);
 		return "redirect:/";
 	}
 	@RequestMapping(value="/product")
     public String product(Model model) {
-		  model.addAttribute("productdata", new ProductDTO()); 
+		  model.addAttribute("productdata", new Product()); 
           return "product";
     }
 	@RequestMapping(value="/delete")
@@ -43,7 +33,7 @@ public class ProductController {
 		model.put("productResults",productService.getProducts(model));
 		return "redirect:/";
 	}
-
+   */
     
 
 }

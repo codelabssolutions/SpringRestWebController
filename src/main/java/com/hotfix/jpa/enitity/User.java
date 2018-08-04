@@ -103,5 +103,12 @@ public class User implements Serializable {
         this.profileImageUrl = profileImageUrl;
     }
 
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", email=" + email + ", userName=" + userName + ", mobile=" + mobile + ", firstName="
+				+ firstName + ", lastName=" + lastName + ", isEnabled=" + isEnabled + ", profileImageUrl="
+				+ profileImageUrl + "]";
+	}
+
     
 }

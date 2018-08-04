@@ -1,7 +1,16 @@
-package com.hotfix.dto;
+package com.hotfix.jpa.enitity;
 
-public class ProductDTO {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
+public class Product {
     
+	@Id
+	@Column(name = "id")
 	private String id;
 	private String name;
 	private String description;
@@ -9,10 +18,10 @@ public class ProductDTO {
 	private String price;
 	private String unit;
 	
-	public ProductDTO() {
+	public Product() {
 		
 	}
-	public ProductDTO(String id, String name, String description, String type, String price, String unit) {
+	public Product(String id, String name, String description, String type, String price, String unit) {
 		
 		this.id = id;
 		this.name = name;
@@ -63,7 +72,5 @@ public class ProductDTO {
 		return "ProductDTO [id=" + id + ", name=" + name + ", description=" + description + ", type=" + type
 				+ ", price=" + price + ", unit=" + unit + "]";
 	}
-
-
 
 }
