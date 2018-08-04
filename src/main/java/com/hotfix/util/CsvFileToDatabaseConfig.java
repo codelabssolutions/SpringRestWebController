@@ -20,7 +20,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 
-import com.hotfix.dto.ProductDTO;
+import com.hotfix.jpa.enitity.Product;
 
 @EnableBatchProcessing
 @Configuration
@@ -37,29 +37,29 @@ public class CsvFileToDatabaseConfig {
     
     // begin reader, writer, and processor
     @Bean
-    public FlatFileItemReader<ProductDTO> csvProductReader(){
-        FlatFileItemReader<ProductDTO> reader = new FlatFileItemReader<ProductDTO>();
+    public FlatFileItemReader<Product> csvProductReader(){
+        FlatFileItemReader<Product> reader = new FlatFileItemReader<Product>();
         reader.setResource(new ClassPathResource("product.csv"));
-        reader.setLineMapper(new DefaultLineMapper<ProductDTO>() {{
+        reader.setLineMapper(new DefaultLineMapper<Product>() {{
             setLineTokenizer(new DelimitedLineTokenizer() {{
                 setNames(new String[] { "id", "name","type", "description", "price", "unit" });
             }});
-            setFieldSetMapper(new BeanWrapperFieldSetMapper<ProductDTO>() {{
-                setTargetType(ProductDTO.class);
+            setFieldSetMapper(new BeanWrapperFieldSetMapper<Product>() {{
+                setTargetType(Product.class);
             }});
         }});
         return reader;
     }
 
 	@Bean
-	ItemProcessor<ProductDTO, ProductDTO> csvProductProcessor() {
+	ItemProcessor<Product, Product> csvProductProcessor() {
 		return new ProductProcessor();
 	}
 
 	@Bean
-	public JdbcBatchItemWriter<ProductDTO> csvProductWriter() {
-		 JdbcBatchItemWriter<ProductDTO> csvProductWriter = new JdbcBatchItemWriter<ProductDTO>();
-		 csvProductWriter.setItemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<ProductDTO>());
+	public JdbcBatchItemWriter<Product> csvProductWriter() {
+		 JdbcBatchItemWriter<Product> csvProductWriter = new JdbcBatchItemWriter<Product>();
+		 csvProductWriter.setItemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<Product>());
 		 csvProductWriter.setSql("INSERT INTO product (id,name,type, description, price, unit) VALUES (:id,:name,:type, :description, :price, :unit)");
 		 csvProductWriter.setDataSource(dataSource);
 	     return csvProductWriter;
@@ -69,7 +69,7 @@ public class CsvFileToDatabaseConfig {
 	@Bean
 	public Step csvFileToDatabaseStep() {
 		return stepBuilderFactory.get("csvFileToDatabaseStep")
-				.<ProductDTO, ProductDTO>chunk(1)
+				.<Product, Product>chunk(1)
 				.reader(csvProductReader())
 				.processor(csvProductProcessor())
 				.writer(csvProductWriter())

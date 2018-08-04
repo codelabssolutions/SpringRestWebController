@@ -14,7 +14,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
-import com.hotfix.dto.ProductDTO;
+import com.hotfix.jpa.enitity.Product;
 
 @Component
 public class JobCompletionNotificationListener extends JobExecutionListenerSupport {
@@ -30,13 +30,13 @@ public class JobCompletionNotificationListener extends JobExecutionListenerSuppo
 	@Override
 	public void afterJob(JobExecution jobExecution) {
 		 if(jobExecution.getStatus() == BatchStatus.COMPLETED) {
-			List<ProductDTO> results = jdbcTemplate.query("SELECT id,name,type, description, price, unit FROM product", new RowMapper<ProductDTO>() {
+			List<Product> results = jdbcTemplate.query("SELECT id,name,type, description, price, unit FROM product", new RowMapper<Product>() {
 				@Override
-				public ProductDTO mapRow(ResultSet rs, int row) throws SQLException {
-					return new ProductDTO(rs.getString(1), rs.getString(2), rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6));
+				public Product mapRow(ResultSet rs, int row) throws SQLException {
+					return new Product(rs.getString(1), rs.getString(2), rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6));
 				}
 			});
-			for (ProductDTO AnimeDTO : results) {
+			for (Product AnimeDTO : results) {
 				log.info("Discovered <" + AnimeDTO + "> in the database.");
 			}
 
